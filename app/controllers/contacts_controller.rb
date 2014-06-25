@@ -47,7 +47,6 @@ class ContactsController < ApplicationController
       if @contact.update(contact_params)
         format.json { render json: nil, status: :ok}
       else
-        format.html { render action: 'edit' }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -56,20 +55,16 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
+    @contact = Contact.find(params[:id])
     @contact.destroy
+
     respond_to do |format|
-      format.html { redirect_to contacts_url }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contact
-      @contact = Contact.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Use callbacks to share common setup or constraints between actions.    # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.require(:contact).permit(:first_name, :last_name)
     end
