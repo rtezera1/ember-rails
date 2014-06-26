@@ -9,6 +9,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @contacts }
+    end
   end
 
   # GET /contacts/1
